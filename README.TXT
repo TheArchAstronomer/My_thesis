@@ -1,1 +1,1 @@
-Banana
+Praktika.ipynb is a jupyter notebook collection of execrises to test and try the astropy, pandas, and gaiatools libraries. This is made to test out certain given datasets. 
