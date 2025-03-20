@@ -1,0 +1,28 @@
+I made this for myself. Why this is publicly available on github is a mystery even to myself.
+I will update this as I go along and provide more files and links to make this a useful cheat sheet in case I forget something. 
+An explanation of different coordinate systems:
+
+Regular
+    Cartesian:
+        Regular x, y, z coordinates. Most commonly used system. Good if you're defining your own space where stuff takes place. A very intuitive system. 
+
+    Polar: 
+        An alternative approach to the cartesian system. Instead of using straight lines to define points, this system uses a radius and an angle to mark the position of a point.
+        This is good for something, I'm sure.
+
+        Cylindric / spherical:
+            Cylindrical coordinates are an offshoot of polar coordinates. A 3D version which gives depth to the planar data. Imagine a physically accurate penguin if you will.
+
+            Spherical coordinates works similarly to cylindrical ones, but instead of having an angle in only one axis, spherical coordinates have a position defining angle 
+                in two axes.
+
+Astronomical systems
+    Galactic:
+        A galactic coordinate system is a system in which the Sun (Sol) is taken as the center (0, 0, 0) of the coordinates. 
+        
+
+    Galactocentric: 
+        A system in which the center of the galaxy (in this specific instance, the Milky Way galaxy) is taken as the origin of the coordinates. A similar system to cylindrical 
+        coordinates, but a special case where the center and axes are predetermined.
+
+    
