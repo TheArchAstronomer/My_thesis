@@ -1,3 +1,5 @@
+import numpy as np
+
 # 3D rotation matrixes
 def rx(theta):
     c, s = np.cos(theta), np.sin(theta)

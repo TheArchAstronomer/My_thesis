@@ -1,3 +1,5 @@
+import numpy as np
+
 # Mock wake generator
 def generate_mock_wake(
     
