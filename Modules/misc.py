@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
 
 def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of bins, extent of plot, sigma for gaussian filter, title of plot, x axis title, y axis title
+    plt.rc('text', usetex=False)
+    plt.rc('font', family='serif')
     fig,ax = plt.subplots(figsize=(12,8), facecolor='white')
     
     def overdensity(x, y, bins):  # generating the overdensity map
@@ -10,8 +12,6 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
         OD = (pre_OD / np.mean(pre_OD)-1)
         return OD, xedges, yedges
     
-    plt.rc('text', usetex=False)
-    plt.rc('font', family='serif')
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
     im = ax.imshow(OD.T, origin='lower', cmap = "seismic")
     c = plt.colorbar(im, ax=ax)
