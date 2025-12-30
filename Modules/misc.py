@@ -14,7 +14,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
     im = ax.imshow(OD.T, origin='lower', cmap = "seismic")
-    c = plt.colorbar(im, ax=ax)
+    c = plt.colorbar(im, ax=ax, size=14)
     plt.xlabel(str(xaxis), size=14)
     plt.ylabel(str(yaxis), size=14)
     ax.tick_params(axis='both', labelsize=12)
