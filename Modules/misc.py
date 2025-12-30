@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
 
 def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of bins, extent of plot, sigma for gaussian filter, title of plot, x axis title, y axis title
-    fig,ax = plt.subplots()
+    fig,ax = plt.subplots(figsize=(12,8), facecolor='white')
     
     def overdensity(x, y, bins):  # generating the overdensity map
         pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
