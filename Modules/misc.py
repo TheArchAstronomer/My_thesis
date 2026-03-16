@@ -14,7 +14,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
         return OD, xedges, yedges
     
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
-    im = ax.imshow(OD.T, origin='lower', cmap = "seismic")
+    # im = ax.imshow(OD.T, origin='lower', cmap = "seismic")
     c = plt.colorbar(im, ax=ax)
     c.ax.tick_params(labelsize=14)
     plt.xlabel(str(xaxis), size=16)
@@ -39,7 +39,7 @@ def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
         z=hist_smoothed,
         x=xcenters,
         y=ycenters,
-        colorscale='seismic',
+        colorscale='RdBu_r',
         colorbar=dict(title='Overdensity'),
         hovertemplate=(
             f'{xaxis}: %{{x:.3f}}<br>'
@@ -52,7 +52,38 @@ def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
         xaxis_title=str(xaxis),
         yaxis_title=str(yaxis),
         font=dict(family='serif', size=14),
-        width=800, height=600
+        width=800, height=800
+    )
+
+    fig.show()
+    return fig
+
+
+def plot_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
+    # Reuse the same overdensity logic
+    counts, xedges, yedges = np.histogram2d(x, y, bins)
+
+    xcenters = (xedges[:-1] + xedges[1:]) / 2
+    ycenters = (yedges[:-1] + yedges[1:]) / 2
+
+    fig = go.Figure(data=go.Heatmap(
+        z=counts.T,
+        x=xcenters,
+        y=ycenters,
+        colorscale='RdBu_r',
+        colorbar=dict(title='Overdensity'),
+        hovertemplate=(
+            f'{xaxis}: %{{x:.3f}}<br>'
+            f'{yaxis}: %{{y:.3f}}<br>'
+            f'OD: %{{z:.3f}}<extra></extra>'
+        )
+    ))
+
+    fig.update_layout(
+        xaxis_title=str(xaxis),
+        yaxis_title=str(yaxis),
+        font=dict(family='serif', size=14),
+        width=800, height=800
     )
 
     fig.show()
