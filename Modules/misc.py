@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
 import plotly.graph_objects as go
 
+def overdensity(x, y, bins):  # generating the overdensity map
+        pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
+        OD = (pre_OD / np.mean(pre_OD)-1)
+        return OD, xedges, yedges
+
 def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of bins, extent of plot, sigma for gaussian filter, title of plot, x axis title, y axis title
     plt.rc('text', usetex=False)
     plt.rc('font', family='serif')
