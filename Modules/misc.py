@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
+import plotly.graph_objects as go
 
 def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of bins, extent of plot, sigma for gaussian filter, title of plot, x axis title, y axis title
     plt.rc('text', usetex=False)
@@ -23,3 +24,40 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
     image = plt.imshow(hist_smoothed, origin='lower', extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap="seismic")
     return image
+
+
+def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
+    def overdensity(x, y, bins):
+        pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
+        OD = (pre_OD / np.mean(pre_OD)) - 1
+        return OD, xedges, yedges
+
+    OD, xedges, yedges = overdensity(x, y, bins)
+    hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
+
+    # Bin centers for axes
+    xcenters = (xedges[:-1] + xedges[1:]) / 2
+    ycenters = (yedges[:-1] + yedges[1:]) / 2
+
+    fig = go.Figure(data=go.Heatmap(
+        z=hist_smoothed,
+        x=xcenters,
+        y=ycenters,
+        colorscale='RdBu_r',
+        colorbar=dict(title='Overdensity'),
+        hovertemplate=(
+            f'{xaxis}: %{{x:.3f}}<br>'
+            f'{yaxis}: %{{y:.3f}}<br>'
+            'OD: %{z:.3f}<extra></extra>'
+        )
+    ))
+
+    fig.update_layout(
+        xaxis_title=str(xaxis),
+        yaxis_title=str(yaxis),
+        font=dict(family='serif', size=14),
+        width=800, height=600
+    )
+
+    fig.show()
+    return fig
