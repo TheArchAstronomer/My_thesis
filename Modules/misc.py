@@ -59,7 +59,7 @@ def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
     return fig
 
 
-def plot_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
+def plot_gaussian_interactive(x, y, bins, xaxis, yaxis):
     # Reuse the same overdensity logic
     counts, xedges, yedges = np.histogram2d(x, y, bins)
 
