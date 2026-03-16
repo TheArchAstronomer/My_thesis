@@ -93,9 +93,3 @@ def plot_gaussian_interactive(x, y, bins, xaxis, yaxis):
 
     fig.show()
     return fig
-
-
-def overdensity3d(x, y, z, bins):
-    pre_OD, xedges, yedges, zedges = np.histogramdd((x, y, z), bins)
-    OD = ((pre_OD / np.mean(pre_OD)) - 1)
-    return OD, xedges, yedges, zedges
