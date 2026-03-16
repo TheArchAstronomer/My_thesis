@@ -27,15 +27,11 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
 
 
 def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
-    def overdensity(x, y, bins):
-        pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
-        OD = (pre_OD / np.mean(pre_OD)) - 1
-        return OD, xedges, yedges
-
-    OD, xedges, yedges = overdensity(x, y, bins)
+    # Reuse the same overdensity logic
+    pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
+    OD = (pre_OD / np.mean(pre_OD)) - 1
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
 
-    # Bin centers for axes
     xcenters = (xedges[:-1] + xedges[1:]) / 2
     ycenters = (yedges[:-1] + yedges[1:]) / 2
 
@@ -48,7 +44,7 @@ def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
         hovertemplate=(
             f'{xaxis}: %{{x:.3f}}<br>'
             f'{yaxis}: %{{y:.3f}}<br>'
-            'OD: %{z:.3f}<extra></extra>'
+            'OD: %{{z:.3f}}<extra></extra>'
         )
     ))
 
