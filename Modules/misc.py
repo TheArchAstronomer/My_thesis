@@ -39,12 +39,12 @@ def plot_OD_gaussian_interactive(x, y, bins, sigma, xaxis, yaxis):
         z=hist_smoothed,
         x=xcenters,
         y=ycenters,
-        colorscale='RdBu_r',
+        colorscale='seismic',
         colorbar=dict(title='Overdensity'),
         hovertemplate=(
             f'{xaxis}: %{{x:.3f}}<br>'
             f'{yaxis}: %{{y:.3f}}<br>'
-            'OD: %{{z:.3f}}<extra></extra>'
+            f'OD: %{{z:.3f}}<extra></extra>'
         )
     ))
 
