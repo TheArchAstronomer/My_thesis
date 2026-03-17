@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
-import plotly.graph_objects as go
+#import plotly.graph_objects as go
 
 def overdensity(x, y, bins):  # generating the overdensity map
         pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
