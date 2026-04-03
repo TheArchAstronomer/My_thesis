@@ -19,7 +19,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
         return OD, xedges, yedges
     
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
-    im = ax.imshow(OD.T, origin='lower', cmap = "seismic")
+    im = ax.imshow(OD.T, origin='upper', cmap = "seismic")
     ax.invert_yaxis()
     c = plt.colorbar(im, ax=ax)
     c.ax.tick_params(labelsize=14)
@@ -28,7 +28,9 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     ax.tick_params(axis='both', labelsize=14)
     c.set_label('Overdensity', labelpad=20, size=16)
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
-    image = plt.imshow(hist_smoothed, origin='lower', extent = [xedges[0], xedges[-1], yedges[-1], yedges[0]], cmap="seismic")
+    image = plt.imshow(hist_smoothed, origin='lower', extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap="seismic")
+    half_max = hist_smoothed.max() / 2
+    ax.contour(hist_smoothed, levels=[half_max], colors='white', linewidths=1.5, extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], origin='lower')
     return image
 
 
