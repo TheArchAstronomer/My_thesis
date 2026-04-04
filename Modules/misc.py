@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
+from matplotlib.colors import Normalize, PowerNorm
 #import plotly.graph_objects as go
 
 def overdensity(x, y, bins):  # generating the overdensity map
@@ -19,18 +20,20 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
         return OD, xedges, yedges
     
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
-    im = ax.imshow(OD.T, origin='upper', cmap = "viridis")
-    c = plt.colorbar(im, ax=ax)
-    c.ax.tick_params(labelsize=14)
-    plt.xlabel(str(xaxis), size=16)
-    plt.ylabel(str(yaxis), size=16)
-    ax.tick_params(axis='both', labelsize=14)
-    c.set_label('Overdensity', labelpad=20, size=16)
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
-    image = plt.imshow(hist_smoothed, origin='lower', extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap="viridis")
+    im = ax.imshow(hist_smoothed, origin='upper', cmap = "viridis", 
+                   extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], 
+                   norm=Normalize(vmin=-np.max(np.abs(hist_smoothed)), vmax=0.3, clip=False))
+    c = plt.colorbar(im, ax=ax)
+    c.ax.tick_params(labelsize=20)
+    plt.xlabel(str(xaxis), size=22)
+    plt.ylabel(str(yaxis), size=22)
+    ax.tick_params(axis='both', labelsize=20)
+    c.set_label('Overdensity', labelpad=20, size=20)
     half_max = hist_smoothed.max() / 2
-    ax.contour(hist_smoothed, levels=[half_max], colors='white', linewidths=1.5, extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], origin='lower')
-    return image
+    ax.contour(hist_smoothed, levels=[half_max], colors='white', linewidths=1.5, 
+               extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], origin='upper')
+    return im
 
 
 def plot_OD_gaussian_foote(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of bins, extent of plot, sigma for gaussian filter, title of plot, x axis title, y axis title
