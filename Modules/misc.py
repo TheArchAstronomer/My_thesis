@@ -156,17 +156,17 @@ def resultant_OD_gaussian(data1, data2, bins, sigma, data1_label, data2_label):
     resultant_OD = hist_smoothed1 - hist_smoothed2
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6), facecolor='white')
-    im1 = axs[0].imshow(hist_smoothed1, origin='upper', cmap="seismic", 
+    im1 = axs[0].imshow(hist_smoothed1, origin='upper', cmap="viridis", 
                         extent=[xedges1[0], xedges1[-1], yedges1[0], yedges1[-1]],
-                          norm=Normalize(vmin=-np.max(np.abs(hist_smoothed1)), vmax=np.max(np.abs(hist_smoothed1)),
+                          norm=Normalize(vmin=np.min(hist_smoothed1), vmax=np.max(hist_smoothed1),
                                           clip=False))
-    im2 = axs[1].imshow(hist_smoothed2, origin='upper', cmap="seismic", 
+    im2 = axs[1].imshow(hist_smoothed2, origin='upper', cmap="viridis", 
                         extent=[xedges2[0], xedges2[-1], yedges2[0], yedges2[-1]],
-                          norm=Normalize(vmin=-np.max(np.abs(hist_smoothed2)), vmax=np.max(np.abs(hist_smoothed2)),
+                          norm=Normalize(vmin=np.min(hist_smoothed2), vmax=np.max(hist_smoothed2),
                                           clip=False))
-    im3 = axs[2].imshow(resultant_OD, origin='upper', cmap="seismic", 
-                        extent=[xedges1[0], xedges1[-1], yedges1[0], yedges1[-1]],
-                          norm=Normalize(vmin=-np.max(np.abs(resultant_OD)), vmax=np.max(np.abs(resultant_OD)), clip=False))
+    im3 = axs[2].imshow(resultant_OD, origin='upper', cmap="viridis", 
+                        extent=[-300, 100, -100, 100],
+                          norm=Normalize(vmin=np.min(resultant_OD), vmax=np.max(resultant_OD), clip=False))
     c = plt.colorbar(im1, ax=axs[0])
     c = plt.colorbar(im2, ax=axs[1])
     c = plt.colorbar(im3, ax=axs[2])
@@ -177,3 +177,41 @@ def resultant_OD_gaussian(data1, data2, bins, sigma, data1_label, data2_label):
     return fig, axs
 
 
+# def resultant_OD_gaussian(data1, data2, bins, sigma, data1_label, data2_label):
+    
+#     def overdensity(x, y, bins):  # generating the overdensity map
+#         pre_OD, xedges, yedges = np.histogram2d(x, y, bins)
+#         OD = ((pre_OD / np.mean(pre_OD))-1)
+#         return OD, xedges, yedges
+    
+#     x1, y1, z1 = data1[:, 0], data1[:, 1], data1[:, 2]
+#     x2, y2, z2 = data2[:, 0], data2[:, 1], data2[:, 2]
+
+#     OD1, xedges1, yedges1 = overdensity(x1, y1, bins)
+#     OD2, xedges2, yedges2 = overdensity(x2, y2, bins)
+
+#     hist_smoothed1 = gaussian_filter(OD1.T, sigma=sigma)
+#     hist_smoothed2 = gaussian_filter(OD2.T, sigma=sigma)
+
+#     resultant_OD = hist_smoothed1 - hist_smoothed2
+
+#     fig, axs = plt.subplots(1, 3, figsize=(18, 6), facecolor='white')
+#     im1 = axs[0].imshow(hist_smoothed1, origin='upper', cmap="seismic", 
+#                         extent=[xedges1[0], xedges1[-1], yedges1[0], yedges1[-1]],
+#                           norm=Normalize(vmin=-np.max(np.abs(hist_smoothed1)), vmax=np.max(np.abs(hist_smoothed1)),
+#                                           clip=False))
+#     im2 = axs[1].imshow(hist_smoothed2, origin='upper', cmap="seismic", 
+#                         extent=[xedges2[0], xedges2[-1], yedges2[0], yedges2[-1]],
+#                           norm=Normalize(vmin=-np.max(np.abs(hist_smoothed2)), vmax=np.max(np.abs(hist_smoothed2)),
+#                                           clip=False))
+#     im3 = axs[2].imshow(resultant_OD, origin='upper', cmap="seismic", 
+#                         extent=[xedges1[0], xedges1[-1], yedges1[0], yedges1[-1]],
+#                           norm=Normalize(vmin=-np.max(np.abs(resultant_OD)), vmax=np.max(np.abs(resultant_OD)), clip=False))
+#     c = plt.colorbar(im1, ax=axs[0])
+#     c = plt.colorbar(im2, ax=axs[1])
+#     c = plt.colorbar(im3, ax=axs[2])
+#     axs[0].set_title(f'{data1_label} Overdensity', size=16)
+#     axs[1].set_title(f'{data2_label} Overdensity', size=16)
+#     axs[2].set_title('Resultant Overdensity', size=16)
+
+#     return fig, axs
