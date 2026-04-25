@@ -22,7 +22,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     
     OD, xedges, yedges = overdensity(x, y, bins) # calling out the function
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
-    im = ax.imshow(hist_smoothed, origin='upper', cmap = "seismic", 
+    im = ax.imshow(hist_smoothed, origin='upper', cmap = "viridis", 
                    extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], 
                    norm=Normalize(vmin=-np.max(np.abs(hist_smoothed)), vmax=1.0, clip=False))
     ax.scatter(0,0, color='white', marker='x', s=150, linewidths=3,label='LMC')
