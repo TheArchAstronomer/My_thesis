@@ -24,7 +24,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     hist_smoothed = gaussian_filter(OD.T, sigma=sigma)
     im = ax.imshow(hist_smoothed, origin='upper', cmap = "viridis", 
                    extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], 
-                   norm=Normalize(vmin=-np.max(np.abs(hist_smoothed)), vmax=1.0, clip=False))
+                   norm=Normalize(vmin=-0.5, vmax=1.0, clip=False))
     ax.scatter(0,0, color='white', marker='x', s=150, linewidths=3,label='LMC')
     c = plt.colorbar(im, ax=ax)
     c.ax.tick_params(labelsize=30)
@@ -39,7 +39,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     c.set_label(r'$\delta \rho$', labelpad=20, size=30)
     half_max = hist_smoothed.max() / 2
     OD_half_max = np.max(OD) / 2
-    print(f"Half max overdensity: {half_max:.4f}")
+    print(f"Smoothed half max overdensity: {half_max:.4f}")
     print(f"OD half max overdensity: {np.max(OD)/2:.4f}")
     # ax.contour(hist_smoothed, levels=[half_max], colors='white', linewidths=1.5, 
     #            extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], origin='upper')
