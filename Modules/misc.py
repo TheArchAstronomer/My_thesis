@@ -25,6 +25,7 @@ def plot_OD_gaussian(x, y, bins, sigma, xaxis, yaxis): # x coord, y coord, nr of
     im = ax.imshow(hist_smoothed, origin='upper', cmap = "viridis", 
                    extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], 
                    norm=Normalize(vmin=-0.5, vmax=1.0, clip=False))
+                # vmin = -0.5, vmax = 1.0)
     ax.scatter(0,0, color='white', marker='x', s=150, linewidths=3,label='LMC')
     c = plt.colorbar(im, ax=ax)
     c.ax.tick_params(labelsize=30)
